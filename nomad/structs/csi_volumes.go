@@ -4,6 +4,20 @@ const (
 	VolumeTypeCSI = "csi"
 )
 
+type CSIVolume struct {
+	ID string
+}
+
+type CSIVolumeRegisterRequest struct {
+	Volumes []*CSIVolume
+	WriteRequest
+}
+
+type CSIVolumeDeregisterRequest struct {
+	VolumeIDs []string
+	WriteRequest
+}
+
 // ClientCSIVolumeConfig is used to configure access to host paths on a Nomad Client
 type ClientCSIVolumeConfig struct {
 	Name     string `hcl:",key"`
