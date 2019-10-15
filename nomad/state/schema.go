@@ -45,6 +45,7 @@ func init() {
 		aclTokenTableSchema,
 		autopilotConfigTableSchema,
 		schedulerConfigTableSchema,
+		csiVolumeTableSchema
 	}...)
 }
 
@@ -614,6 +615,25 @@ func schedulerConfigTableSchema() *memdb.TableSchema {
 				// This indexer ensures that this table is a singleton
 				Indexer: &memdb.ConditionalIndex{
 					Conditional: func(obj interface{}) (bool, error) { return true, nil },
+				},
+			},
+		},
+	}
+}
+
+func csiVolumeTableSchema() *memdb.TableSchema {
+	return &memdb.TableSchema{
+		Name: "csi_volumes",
+		Indexes: map[string]*memdb.IndexSchema{
+			// Primary index is used for volume upsert
+			// and simple direct lookup. ID is required to be
+			// unique.
+			"id": {
+				Name:         "id",
+				AllowMissing: false,
+				Unique:       true,
+				Indexer: &memdb.UUIDFieldIndex{
+					Field: "ID",
 				},
 			},
 		},
