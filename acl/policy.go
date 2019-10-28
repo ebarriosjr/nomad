@@ -33,6 +33,8 @@ const (
 	NamespaceCapabilityAllocNodeExec    = "alloc-node-exec"
 	NamespaceCapabilityAllocLifecycle   = "alloc-lifecycle"
 	NamespaceCapabilitySentinelOverride = "sentinel-override"
+	NamespaceCapabilityPrivilegedTask   = "privileged-task"
+	NamespaceCapabilityCSIAccess        = "csi-access"
 )
 
 var (
